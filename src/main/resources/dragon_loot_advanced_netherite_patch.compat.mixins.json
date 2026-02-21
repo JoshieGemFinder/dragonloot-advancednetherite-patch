@@ -1,0 +1,17 @@
+{
+	"required": false,
+	"package": "com.joshiegemfinder.dragonlootadvancednetheritepatch.mixin",
+	"plugin": "com.joshiegemfinder.dragonlootadvancednetheritepatch.compat.DLANPCompatMixinPlugin",
+	"compatibilityLevel": "JAVA_17",
+	"mixins": [
+		"compat.MWCompatRecipesMixin",
+		"compat.MWRecipeManagerFallbackMixin",
+		"compat.MWCompatItemsMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}

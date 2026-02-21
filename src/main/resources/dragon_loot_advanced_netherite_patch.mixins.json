@@ -1,0 +1,19 @@
+{
+	"required": true,
+	"package": "com.joshiegemfinder.dragonlootadvancednetheritepatch.mixin",
+	"compatibilityLevel": "JAVA_17",
+	"mixins": [
+		"DragonArmorMixin",
+		"DragonToolMaterialMixin",
+		"DragonPickaxeItemMixin",
+		"DragonSwordItemMixin",
+		"DragonHoeItemMixin",
+		"DragonLootConfigMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}

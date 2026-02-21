@@ -1,0 +1,11 @@
+{
+    "pack": {
+        "pack_format": 15,
+        "description": {
+            "translate": "dataPack.dragon_loot_advanced_netherite_patch.medievalweapons_compat.description"
+        },
+        "name": {
+            "translate": "dataPack.dragon_loot_advanced_netherite_patch.medievalweapons_compat.name"
+        }
+    }
+}

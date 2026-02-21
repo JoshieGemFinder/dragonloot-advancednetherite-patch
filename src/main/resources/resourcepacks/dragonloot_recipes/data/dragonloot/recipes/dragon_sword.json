@@ -1,0 +1,15 @@
+{
+	"type": "minecraft:smithing_transform",
+	"base": {
+		"item": "advancednetherite:netherite_diamond_sword"
+	},
+	"addition": {
+		"tag": "dragon_loot_advanced_netherite_patch:upgrade_to_dragon"
+	},
+	"result": {
+		"item": "dragonloot:dragon_sword"
+	},
+	"template": {
+		"item": "minecraft:netherite_upgrade_smithing_template"
+	}
+}

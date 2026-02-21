@@ -1,0 +1,15 @@
+{
+	"type": "minecraft:smithing_transform",
+	"addition": {
+		"tag": "dragon_loot_advanced_netherite_patch:upgrade_to_dragon"
+	},
+	"base": {
+		"item": "advanced_netherite_medieval_weapons:netherite_diamond_lance"
+	},
+	"result": {
+		"item": "medievalweapons:dragon_lance"
+	},
+	"template": {
+		"item": "minecraft:netherite_upgrade_smithing_template"
+	}
+}
