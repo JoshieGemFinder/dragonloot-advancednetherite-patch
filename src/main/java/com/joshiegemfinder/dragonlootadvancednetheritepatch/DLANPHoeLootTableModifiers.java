@@ -1,6 +1,5 @@
 package com.joshiegemfinder.dragonlootadvancednetheritepatch;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.jetbrains.annotations.Nullable;
@@ -11,7 +10,6 @@ import com.autovw.advancednetherite.core.util.ModTooltips;
 import com.joshiegemfinder.dragonlootadvancednetheritepatch.config.DLANPConfigHolder;
 import com.joshiegemfinder.dragonlootadvancednetheritepatch.config.DragonLootAdvancedNetheritePatchConfig;
 
-import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.loot.v2.LootTableSource;
@@ -80,20 +78,26 @@ public final class DLANPHoeLootTableModifiers
 			}
 			// ADDITIONAL CROP DROPS END //
 		}));
-
-		ItemTooltipCallback.EVENT.register((stack, context, lines) -> {
-			if(stack.getItemHolder().is(EXTERNAL_TOOLTIP)) {
-				List<Component> tooltipLines = new ArrayList<>();
-				appendHoeCropHoverText(stack, null, tooltipLines, context);
-				lines.addAll(1, tooltipLines);
-			}
-		});
 		
 		PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {
 			if(player.getMainHandItem().is(DOUBLE_CROP_DROPS) && DLANPConfigHolder.get().dragon_hoe_double_crop_drops) {
 				addDoubleCropDrops(world, player, pos, state, blockEntity);
 			}
 		});
+	}
+	
+	public static boolean hasExternalTooltipTag(ItemStack stack) {
+		return stack.is(EXTERNAL_TOOLTIP);
+	}
+	
+	public static boolean hasAbilityTooltips(ItemStack stack) {
+		if(ConfigHelper.get().getCommon().getAdditionalDrops().enableAdditionalCropDrops()) {
+	    	final DragonLootAdvancedNetheritePatchConfig config = DLANPConfigHolder.get();
+			final boolean extraCropDrops  = config.dragon_hoe_extra_crop_drops  && stack.is(ADDITIONAL_CROP_DROPS);
+			final boolean doubleCropDrops = config.dragon_hoe_double_crop_drops && stack.is(DOUBLE_CROP_DROPS);
+			return extraCropDrops || doubleCropDrops;
+		}
+		return false;
 	}
 	
 	public static void appendHoeCropHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flag) {

@@ -1,6 +1,5 @@
 package com.joshiegemfinder.dragonlootadvancednetheritepatch;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.autovw.advancednetherite.common.ModLootTableModifiers;
@@ -9,7 +8,6 @@ import com.autovw.advancednetherite.core.util.ModTooltips;
 import com.joshiegemfinder.dragonlootadvancednetheritepatch.config.DLANPConfigHolder;
 import com.joshiegemfinder.dragonlootadvancednetheritepatch.config.DragonLootAdvancedNetheritePatchConfig;
 
-import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
@@ -98,14 +96,22 @@ public final class DLANPPickaxeLootTableModifiers
 			}
 			// ADDITIONAL ORE DROPS END //
 		}));
-		
-		ItemTooltipCallback.EVENT.register((stack, context, lines) -> {
-			if(stack.getItemHolder().is(EXTERNAL_TOOLTIP)) {
-				List<Component> tooltipLines = new ArrayList<>();
-				appendPickaxeOreHoverText(stack, null, tooltipLines, context);
-				lines.addAll(1, tooltipLines);
-			}
-		});
+	}
+	
+	public static boolean hasExternalTooltipTag(ItemStack stack) {
+		return stack.is(EXTERNAL_TOOLTIP);
+	}
+	
+	public static boolean hasAbilityTooltips(ItemStack stack) {
+		if(ConfigHelper.get().getCommon().getAdditionalDrops().enableAdditionalOreDrops()) {
+	    	final DragonLootAdvancedNetheritePatchConfig config = DLANPConfigHolder.get();
+			final boolean extraIronDrops    = config.dragon_pickaxe_extra_iron    && stack.is(ADDITIONAL_IRON_DROPS);
+			final boolean extraGoldDrops    = config.dragon_pickaxe_extra_gold    && stack.is(ADDITIONAL_GOLD_DROPS);
+			final boolean extraEmeraldDrops = config.dragon_pickaxe_extra_emerald && stack.is(ADDITIONAL_EMERALD_DROPS);
+			final boolean extraDiamondDrops = config.dragon_pickaxe_extra_diamond && stack.is(ADDITIONAL_DIAMOND_DROPS);
+			return extraIronDrops || extraGoldDrops || extraEmeraldDrops || extraDiamondDrops;
+		}
+		return false;
 	}
 	
 	public static void appendPickaxeOreHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flag) {
@@ -114,7 +120,7 @@ public final class DLANPPickaxeLootTableModifiers
 		final boolean extraGoldDrops    = config.dragon_pickaxe_extra_gold    && stack.is(ADDITIONAL_GOLD_DROPS);
 		final boolean extraEmeraldDrops = config.dragon_pickaxe_extra_emerald && stack.is(ADDITIONAL_EMERALD_DROPS);
 		final boolean extraDiamondDrops = config.dragon_pickaxe_extra_diamond && stack.is(ADDITIONAL_DIAMOND_DROPS);
-		if ((extraIronDrops || extraGoldDrops || extraEmeraldDrops || extraDiamondDrops) && ConfigHelper.get().getCommon().getAdditionalDrops().enableAdditionalMobDrops())
+		if ((extraIronDrops || extraGoldDrops || extraEmeraldDrops || extraDiamondDrops) && ConfigHelper.get().getCommon().getAdditionalDrops().enableAdditionalOreDrops())
 		{
 			if (Screen.hasShiftDown())
 			{

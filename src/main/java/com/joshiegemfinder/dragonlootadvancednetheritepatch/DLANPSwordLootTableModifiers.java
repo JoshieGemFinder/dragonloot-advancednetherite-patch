@@ -1,6 +1,5 @@
 package com.joshiegemfinder.dragonlootadvancednetheritepatch;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.autovw.advancednetherite.common.ModLootTableModifiers;
@@ -9,7 +8,6 @@ import com.autovw.advancednetherite.core.util.ModTooltips;
 import com.joshiegemfinder.dragonlootadvancednetheritepatch.config.DLANPConfigHolder;
 import com.joshiegemfinder.dragonlootadvancednetheritepatch.config.DragonLootAdvancedNetheritePatchConfig;
 
-import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.EntityEquipmentPredicate;
@@ -89,14 +87,22 @@ public final class DLANPSwordLootTableModifiers
 			}
 			// ADDITIONAL MOB DROPS END //
 		}));
-		
-		ItemTooltipCallback.EVENT.register((stack, context, lines) -> {
-			if(stack.getItemHolder().is(EXTERNAL_TOOLTIP)) {
-				List<Component> tooltipLines = new ArrayList<>();
-				appendSwordLootHoverText(stack, null, tooltipLines, context);
-				lines.addAll(1, tooltipLines);
-			}
-		});
+	}
+	
+	public static boolean hasExternalTooltipTag(ItemStack stack) {
+		return stack.is(EXTERNAL_TOOLTIP);
+	}
+	
+	public static boolean hasAbilityTooltips(ItemStack stack) {
+		if(ConfigHelper.get().getCommon().getAdditionalDrops().enableAdditionalMobDrops()) {
+	    	final DragonLootAdvancedNetheritePatchConfig config = DLANPConfigHolder.get();
+			final boolean extraPhantomDrops         = config.dragon_sword_extra_phantom_drops          && stack.is(ADDITIONAL_PHANTOM_DROPS);
+			final boolean extraPiglinDrops          = config.dragon_sword_extra_piglin_drops           && stack.is(ADDITIONAL_PIGLIN_DROPS);
+			final boolean extraZombifiedPiglinDrops = config.dragon_sword_extra_zombified_piglin_drops && stack.is(ADDITIONAL_ZOMBIFIED_PIGLIN_DROPS);
+			final boolean extraEndermanDrops        = config.dragon_sword_extra_enderman_drops         && stack.is(ADDITIONAL_ENDERMAN_DROPS);
+			return extraPhantomDrops || extraPiglinDrops || extraZombifiedPiglinDrops || extraEndermanDrops;
+		}
+		return false;
 	}
 	
 	public static void appendSwordLootHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flag) {
