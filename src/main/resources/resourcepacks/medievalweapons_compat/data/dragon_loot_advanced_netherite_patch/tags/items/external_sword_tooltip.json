@@ -1,6 +1,6 @@
 {
 	"replace": false,
-    "values": [
+	"values": [
 		{ "id": "medievalweapons:dragon_big_axe", "required": false },
 		{ "id": "medievalweapons:dragon_dagger", "required": false },
 		{ "id": "medievalweapons:dragon_francisca", "required": false },
@@ -13,5 +13,5 @@
 		{ "id": "medievalweapons:dragon_rapier", "required": false },
 		{ "id": "medievalweapons:dragon_sickle", "required": false },
 		{ "id": "medievalweapons:dragon_small_axe", "required": false }
-    ]
+	]
 }

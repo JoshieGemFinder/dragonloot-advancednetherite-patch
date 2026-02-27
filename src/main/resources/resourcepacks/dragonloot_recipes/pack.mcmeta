@@ -1,11 +1,11 @@
 {
-    "pack": {
-        "pack_format": 15,
-        "description": {
-            "translate": "dataPack.dragon_loot_advanced_netherite_patch.dragonloot_recipes.description"
-        },
-        "name": {
-            "translate": "dataPack.dragon_loot_advanced_netherite_patch.dragonloot_recipes.name"
-        }
-    }
+	"pack": {
+		"pack_format": 15,
+		"description": {
+			"translate": "dataPack.dragon_loot_advanced_netherite_patch.dragonloot_recipes.description"
+		},
+		"name": {
+			"translate": "dataPack.dragon_loot_advanced_netherite_patch.dragonloot_recipes.name"
+		}
+	}
 }
